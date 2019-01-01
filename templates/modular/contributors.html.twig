@@ -1,0 +1,34 @@
+<section class="section-contributors text-center bg-inverse">
+    <div class="container">
+        <h3>{{ page.title }}</h3>
+
+        <div id="carousel-contributors" class="carousel slide" data-ride="carousel" data-interval="0">
+            <div class="carousel-inner" role="listbox">
+                {% for contributor in page.header.contributors %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        {% if contributor.avatar %}
+                            <div class="text-center">
+                                <img src="{{ page.media.images[contributor.avatar].url }}" height="80"
+                                     alt="Avatar" class="img-circle">
+                            </div>
+                        {% endif %}
+                        {% if contributor.quote %}
+                            <p class="contributor-text h3 m-t-md">{{ contributor.quote }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <ol class="carousel-indicators m-t-md">
+                {% for contributor in page.header.contributors %}
+                    {% if contributor.avatar %}
+                        <li {% if loop.first %}class="active"{% endif %}><img
+                                    src="{{ page.media.images[contributor.avatar].url }}" alt="Navigation avatar"
+                                    data-target="#carousel-contributors" data-slide-to="{{ loop.index0 }}"
+                                    class="img-responsive img-circle"></li>
+                    {% endif %}
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</section>

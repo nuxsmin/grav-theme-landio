@@ -5,6 +5,7 @@
  * Copyright 2011, 2015 Mathias Bynens
  * Released under the MIT license
  */
+
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD

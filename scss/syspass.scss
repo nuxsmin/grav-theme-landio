@@ -1,0 +1,76 @@
+@import "bootstrap/custom-variables";
+@import "bootstrap/mixins";
+@import "bootstrap/tables";
+
+#logo-overlay {
+  margin: 1rem;
+
+  img {
+    width: 500px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  #logo-overlay {
+    margin: 1rem;
+
+    img {
+      width: 250px;
+    }
+  }
+}
+
+#copyright {
+  a {
+    border-bottom: 1px solid $gray-light;
+  }
+}
+
+.section-links {
+  .card {
+    width: 20rem;
+    border: none;
+
+    .card-img-fixed-h {
+      margin: 0 auto;
+      text-align: center;
+
+      img {
+        max-height: 200px;
+      }
+    }
+  }
+
+  .card-row {
+    margin: 2rem 0;
+  }
+}
+
+.bg-inverse-syspass {
+  background-color: $brand-primary;
+}
+
+hr.divider {
+  margin: 5em 0;
+
+  &.divider-inverse {
+    background-color: $gray-light;
+  }
+}
+
+.section-contributors {
+  #carousel-contributors {
+    padding: 2rem 0;
+    margin: 2rem 0;
+    border-top: 1px solid $gray-light;
+    border-bottom: 1px solid $gray-light;
+
+    .contributor-text {
+      min-height: 7rem;
+
+      a {
+        border-bottom: 1px solid $gray-light;
+      }
+    }
+  }
+}

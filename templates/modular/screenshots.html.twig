@@ -1,0 +1,31 @@
+<section class="section-screenshots text-center bg-inverse">
+  <div class="container">
+    {{ page.content }}
+    <div id="carousel-screenshots" class="carousel slide" data-ride="carousel" data-interval="5000">
+      <div class="carousel-inner" role="listbox">
+        {% for screenshot in page.header.screenshots %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+          <blockquote class="blockquote">
+            {% if screenshot.image %}
+            <img src="{{ page.media.images[screenshot.image].url }}" height="250" alt="Screenshot" class="img-rounded">
+            {% endif %}
+            {% if screenshot.quote %}
+            <p class="h3">{{ screenshot.quote }}</p>
+            {% endif %}
+            {% if screenshot.name %}
+            <footer>{{ screenshot.name }}</footer>
+            {% endif %}
+          </blockquote>
+        </div>
+        {% endfor %}
+      </div>
+      <ol class="carousel-indicators">
+        {% for screenshot in page.header.screenshots %}
+        {% if screenshot.image %}
+        <li {% if loop.first %}class="active"{% endif %}><img src="{{ page.media.images[screenshot.image].url }}" alt="Navigation avatar" data-target="#carousel-screenshots" data-slide-to="{{ loop.index0 }}" class="img-responsive img-circle"></li>
+        {% endif %}
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+</section>

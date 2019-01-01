@@ -1,0 +1,34 @@
+<section id="links" class="section-links">
+    <div class="container">
+        {{ page.content }}
+        {% for row in page.header.links|batch(3) %}
+            <div class="row card-row">
+                {% for link in row %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-img-fixed-h">
+                                <img class="img-circle"
+                                     src="{{ page.media[link.image].url }}"
+                                     alt="Link image">
+                            </div>
+                            <div class="card-body">
+                                {% if link.title %}
+                                    <h5 class="card-title">{{ link.title }}</h5>
+                                {% endif %}
+
+                                <p class="card-text">{{ link.content }}</p>
+                                <a href="{{ link.url }}" target="_blank" class="btn btn-primary-outline pull-right">
+                                    {% if link.icon %}
+                                        <span class="icon-{{ link.icon }}"></span>
+                                    {% else %}
+                                        <span class="icon-arrow-right"></span>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</section>

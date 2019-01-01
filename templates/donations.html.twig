@@ -1,0 +1,53 @@
+{% extends 'partials/base.html.twig' %}
+{% block header %}{% endblock %}
+{% block content %}
+    <section class="section-text">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12">
+
+                    {{ page.content }}
+
+                    <div class="text-center">
+                        <form action="{{ page.header.form.action }}" method="post" target="_blank">
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="{{ page.header.form.projectId }}">
+                            <button type="submit" class="btn btn-primary">{{ page.header.form.buttonText }}</button>
+                            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1"
+                                 height="1">
+                        </form>
+                    </div>
+
+                    <hr class="divider">
+
+                    <h2>Donors List</h2>
+
+                    {% if page.header.donors.list %}
+                        <div id="donors-list">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">{{ page.header.donors.header.name }}</th>
+                                    <th class="text-center">{{ page.header.donors.header.amount }}</th>
+                                    <th class="text-center">{{ page.header.donors.header.date }}</th>
+                                </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                {% for donor in page.header.donors.list %}
+                                    <tr>
+                                        <td>{{ donor.name }}</td>
+                                        <td>{{ donor.amount }}</td>
+                                        <td>{{ donor.date }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

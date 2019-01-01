@@ -1,62 +1,86 @@
 <!DOCTYPE html>
 <html lang="{{ grav.language.getLanguage ?: 'en' }}">
 <head>
-        {% block head %}
-        <meta charset="utf-8" />
+    {% block head %}
+        <meta charset="utf-8"/>
         <title>{% if header.title %}{{ header.title }} | {% endif %}{{ site.title }}</title>
         {% include 'partials/metadata.html.twig' %}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <link rel="apple-touch-icon" sizes="57x57" href="{{ url('theme://img/favicon/apple-touch-icon-57x57.png') }}">
-        <link rel="apple-touch-icon" sizes="60x60" href="{{ url('theme://img/favicon/apple-touch-icon-60x60.png') }}">
-        <link rel="apple-touch-icon" sizes="72x72" href="{{ url('theme://img/favicon/apple-touch-icon-72x72.png') }}">
-        <link rel="apple-touch-icon" sizes="76x76" href="{{ url('theme://img/favicon/apple-touch-icon-76x76.png') }}">
-        <link rel="apple-touch-icon" sizes="114x114" href="{{ url('theme://img/favicon/apple-touch-icon-114x114.png') }}">
-        <link rel="apple-touch-icon" sizes="120x120" href="{{ url('theme://img/favicon/apple-touch-icon-120x120.png') }}">
-        <link rel="apple-touch-icon" sizes="144x144" href="{{ url('theme://img/favicon/apple-touch-icon-144x144.png') }}">
-        <link rel="apple-touch-icon" sizes="152x152" href="{{ url('theme://img/favicon/apple-touch-icon-152x152.png') }}">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ url('theme://img/favicon/apple-touch-icon-180x180.png') }}">
-        <link rel="icon" type="image/png" href="{{ url('theme://img/favicon/favicon-32x32.png') }}" sizes="32x32">
-        <link rel="icon" type="image/png" href="{{ url('theme://img/favicon/android-chrome-192x192.png') }}" sizes="192x192">
-        <link rel="icon" type="image/png" href="{{ url('theme://img/favicon/favicon-96x96.png') }}" sizes="96x96">
-        <link rel="icon" type="image/png" href="{{ url('theme://img/favicon/favicon-16x16.png') }}" sizes="16x16">
-        <link rel="manifest" href="{{ url('theme://img/favicon/manifest.json') }}" />
-        <link rel="icon" type="image/png" href="{{ url('theme://img/favicon/favicon.ico') }}" />
 
-        <meta name="msapplication-TileColor" content="#663fb5">
-        <meta name="msapplication-TileImage" content="{{ url('theme://img/favicon/mstile-144x144.png') }}">
-        <meta name="msapplication-config" content="{{ url('theme://img/favicon/browserconfig.xml') }}">
-        <meta name="theme-color" content="#663fb5">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        {% if page.header.header_image %}
+            {% set og_image = site_url ~  page.media.images[page.header.header_image].cache.url() %}
+        {% elseif page.media.images|length > 0 %}
+            {% set og_image = site_url ~  page.media.images|first.cache.url() %}
+        {% else %}
+            {% set og_image = '' %}
+        {% endif %}
+
+        <meta property="og:url" content="{{ page.url(true) }}"/>
+        <meta property="og:title" content="{{ page.title|e('html_attr') }}"/>
+        <meta property="og:description" content="{{ page.header.metadata.description|e('html_attr') }}"/>
+
+        {% if og_image is not empty %}
+            <meta property="og:image" content="{{ og_image }}"/>
+        {% endif %}
+
+        {% include 'partials/header-favicon.html.twig' %}
 
         {% block stylesheets %}
             {% do assets.addCss('theme://css/animate.min.css') %}
+            {% do assets.addCss('theme://css/icomoon.min.css') %}
             {% do assets.addCss('theme://css/landio.min.css') %}
+            {% do assets.addCss('theme://css/magnific-popup.min.css') %}
+            {% do assets.addCss('theme://css/syspass.min.css') %}
         {% endblock %}
+
         {{ assets.css() }}
 
         {% block javascripts %}
             {% do assets.add('jquery',101) %}
         {% endblock %}
+
         {{ assets.js() }}
 
-        {% endblock head%}
-    </head>
-    <body>
-        {% block navigation %}
-            {% include 'partials/navigation.html.twig' %}
-        {% endblock %}
+    {% endblock head %}
+</head>
+<body>
+<span id="totop"></span>
 
-        {% block header %}
-             {% include 'partials/header.html.twig' %}
-        {% endblock %}
+{% block navigation %}
+    {% include 'partials/navigation.html.twig' %}
+{% endblock %}
 
-        {% block body %}
-            {% block content %}{% endblock %}
-        {% endblock %}
+{% block header %}
+    {% include 'partials/header.html.twig' %}
+{% endblock %}
 
-        {% block footer %}
-             {% include 'partials/footer.html.twig' %}
-        {% endblock %}
+{% block body %}
+    {% block content %}{% endblock %}
+{% endblock %}
 
-        <script src="{{ url('theme://js/landio.min.js') }}" type="text/javascript" ></script>
-    </body>
+{% block footer %}
+    {% include 'partials/footer.html.twig' %}
+{% endblock %}
+
+{% block body_js %}
+    <script src="{{ url('theme://js/bootstrap/util.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/bootstrap/carousel.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/bootstrap/collapse.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/bootstrap/dropdown.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/bootstrap/modal.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/plugins/jquery.waypoints.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/plugins/jquery.placeholder.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/plugins/video.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/landio.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/plugins/jquery.magnific-popup.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url('theme://js/syspass.min.js') }}" type="text/javascript"></script>
+
+    {% if browser.getBrowser == 'msie' and browser.getVersion < 9 %}
+        {% do assets.addJs('https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js') %}
+        {% do assets.addJs('https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js') %}
+    {% endif %}
+{% endblock %}
+</body>
 </html>

@@ -1,0 +1,28 @@
+{% extends 'partials/base.html.twig' %}
+
+{% set dateformat = admin.page.dateformat ?: config.system.pages.dateformat.short ?: "F d, Y" %}
+
+{% block stylesheets %}
+    {% do assets.addCss('theme://css/landio.min.css') %}
+    {% do assets.addCss('theme://css/font-awesome.min.css') %}
+    {% do assets.addCss('theme://css/clean-blog.min.css') %}
+{% endblock %}
+
+{% block header %}
+    {% include 'partials/blog/header.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    {{ page.content }}
+                    {% if config.plugins.jscomments.enabled %}
+                        {{ jscomments() }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block stylesheets %}
+    {% do assets.addCss('theme://css/landio.min.css') %}
+    {% do assets.addCss('theme://css/font-awesome.min.css') %}
+    {% do assets.addCss('theme://css/clean-blog.min.css') %}
+{% endblock %}
+
+{% block header %}
+    {% include 'partials/blog/header.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'partials/blog/content.html.twig' %}
+{% endblock %}

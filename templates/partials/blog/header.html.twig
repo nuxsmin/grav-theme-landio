@@ -1,0 +1,27 @@
+{% if not page.header.header_class %}
+    {% if page.header.header_image %}
+        {% set header_style = 'background-image: url(\'' ~ page.media.images[page.header.header_image].cache.url()  ~ '\')' %}
+    {% else %}
+        {% set header_style = 'background-image: url(\'' ~ url('theme://img/bg-header.jpg') ~ '\')' %}
+    {% endif %}
+{% endif %}
+
+<header class="intro-header {{ page.header.header_class }}" style="{{ header_style }}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>{{ page.title }}</h1>
+                    {% if page.header.subheading %}
+                        <hr class="small">
+                        <span class="subheading">{{ page.header.subheading }}</span>
+                    {% endif %}
+
+                    {% if page.header.author %}
+                        <span class="meta">{{ 'BLOG.POST_BY'|t }} {{ page.header.author }} {{ 'BLOG.POST_ON'|t }} {{ page.date|date(dateformat) }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,29 +1,42 @@
-<section id="features" class="section-features text-center">
+<section id="features" class="section-features">
     <div class="container">
-        <div class="row">
-            {{ page.content }}
-            <div class="features-wrapper">
-                {% for item in page.header.features %}
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-block">
-                            {% if item.icon %}
-                                <span class="icon-{{ item.icon }}"></span>
-                            {% endif %}
-                            {% if item.title %}
-                                <h4 class="card-title">{{ item.title }}</h4>
-                            {% endif %}
-                            {% if item.subtitle %}
-                                <h6 class="card-subtitle text-muted">{{ item.subtitle }}</h6>
-                            {% endif %}
-                            {% if item.text %}
-                                <p class="card-text">{{ item.text }}</p>
-                            {% endif %}
+        <h3 class="sr-only">{{ page.header.title }}</h3>
+        <div class="bg-inverse">
+            {% for row in page.header.features|batch(2) %}
+                {% for features in row %}
+                    <div class="row">
+                        {% if features.image %}
+                            <div class="{% if loop.first %}col-md-6 p-r-0{% else %}col-md-6 col-md-push-6 p-l-0{% endif %}">
+                                <figure class="has-light-mask m-b-0 image-effect">
+                                    <img src="{{ page.media[features.image].url }}" alt="Article thumbnail"
+                                         class="img-responsive img-show">
+                                </figure>
+                            </div>
+                        {% endif %}
+                        <div class="{% if loop.first %}col-md-6 p-l-0{% else %}col-md-6 col-md-pull-6 p-r-0{% endif %}">
+                            <article class="center-block">
+                                {% if features.label %}
+                                    <span class="label label-info">{{ features.label }}</span>
+                                    <br>
+                                {% endif %}
+                                {% if features.title %}
+                                    <h5>{{ features.title }}</h5>
+                                {% endif %}
+                                <p class="m-b-0">
+                                    {% if features.tags %}
+                                        <span class="label label-default text-uppercase"><span
+                                                    class="icon-tag"></span>{{ features.tags|join(' | ') }}</span>
+                                    {% endif %}
+                                    {% if features.time %}
+                                        <span class="label label-default text-uppercase"><span
+                                                    class="icon-time"></span> {{ features.time }}</span>
+                                    {% endif %}
+                                </p>
+                            </article>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>
